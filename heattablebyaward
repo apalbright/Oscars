@@ -1,6 +1,6 @@
 #create heat table for means across award categories
 
-oscar <- read.csv("master1.csv")
+oscar <- read.csv("master.csv")
 oscar$Name <- with(oscar, reorder(Award, Award))
 
 library("ggplot2")
