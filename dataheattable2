@@ -1,0 +1,73 @@
+**Import oscars info**
+clear all 
+set more off
+
+cd "C:\Users\apa\Desktop\My Work\Misc For Me (NISD)\The Little Dataset\oscars"
+import excel "oscars3", firstrow clear
+
+drop if Speech==""
+
+gen wordcount=wordcount(Speech)
+
+replace Award="Makeup/Makeup and Hairstyling" if Award=="Makeup"
+replace Award="Art Direction/Production Design" if Award=="Art Direction"
+
+egen words1=sum(wordcount), by(Award)
+gen words2=words1/5
+replace words2=words1/6 if Award=="Sound Editing" //two teams were given award in 2012
+
+**avgs of length, I, we across groups**
+gen I=length(Speech)-length(subinstr(Speech, "I ", " ",.))
+gen I2=length(Speech)-length(subinstr(Speech, "me ", "  ",.))
+gen I3=length(Speech)-length(subinstr(Speech, "my ", "  ",.))
+gen I4=length(Speech)-length(subinstr(Speech, "My ", "  ",.))
+gen I5=length(Speech)-length(subinstr(Speech, "Me ", "  ",.))
+gen I6=length(Speech)-length(subinstr(Speech, "I'", " ",.))
+gen I7=length(Speech)-length(subinstr(Speech, "myself", "     ",.))
+gen I1=I+I2+I3+I4+I5+I6+I7
+drop I I2 I3 I4 I5 I6 I7
+
+gen We1=length(Speech)-length(subinstr(Speech, "we ", "  ",.))
+gen We2=length(Speech)-length(subinstr(Speech, "We ", "  ",.))
+gen We3=length(Speech)-length(subinstr(Speech, "our ", "   ",.))
+gen We4=length(Speech)-length(subinstr(Speech, "Our ", "   ",.))
+gen We5=length(Speech)-length(subinstr(Speech, "us ", "  ",.))
+gen We6=length(Speech)-length(subinstr(Speech, "we'", "  ",.))
+gen We7=length(Speech)-length(subinstr(Speech, "We'", "  ",.))
+gen We8=length(Speech)-length(subinstr(Speech, "ourselves", "        ",.))
+gen We10=We1+We2+We3+We4+We5+We6+We7+We8
+drop We1 We2 We3 We4 We5 We6 We7 We8
+
+rename wordcount words
+rename I1 I
+rename We1 We
+
+gen GenderActor="Female Actor" if Gender==1 & Actors==1
+replace GenderActor="Male Actor" if Gender==0 & Actors==1
+replace GenderActor="Female Non-Actor" if Gender==1 & Actors==0
+replace GenderActor="Male Non-Actor" if Gender==0 & Actors==0
+
+*calc avg length by category*
+egen words4=mean(words), by(GenderActor)
+
+*calc avg wepercent by category*
+egen words3=sum(words), by(GenderActor)
+egen We1=sum(We), by(GenderActor)
+gen Wepercent=(We1/words3)
+
+*calc avg Ipercent by category*
+egen I1=sum(I), by(GenderActor)
+gen Ipercent=(I1/words3)*100
+
+*calc avg selfrat by category*
+gen self=I1/We1
+
+sort GenderActor
+by GenderActor: gen i=_n
+keep if i<2
+
+keep GenderActor words4 Ipercent Wepercent self
+order GenderActor words4 Ipercent Wepercent self
+
+save genderactor1, replace
+export excel genderactor1, firstrow(variables) replace
