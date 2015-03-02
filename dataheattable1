@@ -1,0 +1,148 @@
+**Import oscars data**
+clear all 
+set more off
+
+cd "C:\Users\apa\Desktop\My Work\Misc For Me (NISD)\The Little Dataset\oscars"
+import excel "oscars3", firstrow clear
+
+drop if Speech==""
+
+gen wordcount=wordcount(Speech)
+
+replace Award="Makeup/Makeup and Hairstyling" if Award=="Makeup"
+replace Award="Art Direction/Production Design" if Award=="Art Direction"
+
+egen words1=sum(wordcount), by(Award)
+gen words2=words1/5
+replace words2=words1/6 if Award=="Sound Editing" //two teams were given award in 2012
+
+save oscars2, replace
+
+**word count by award**
+clear all
+use oscars2
+keep Award words2
+
+sort Award
+by Award: gen i=_n
+keep if i<2
+drop i
+gsort -words2
+rename words2 words
+
+save oscarwords, replace
+
+**I counts**
+clear all
+use oscars2
+
+gen I=length(Speech)-length(subinstr(Speech, "I ", " ",.))
+gen I2=length(Speech)-length(subinstr(Speech, "me ", "  ",.))
+gen I3=length(Speech)-length(subinstr(Speech, "my ", "  ",.))
+gen I4=length(Speech)-length(subinstr(Speech, "My ", "  ",.))
+gen I5=length(Speech)-length(subinstr(Speech, "Me ", "  ",.))
+gen I6=length(Speech)-length(subinstr(Speech, "I'", " ",.))
+gen I7=length(Speech)-length(subinstr(Speech, "myself", "     ",.))
+
+gen I10=I+I2+I3+I4+I5+I6+I7
+
+egen I1=sum(I10), by(Award)
+keep Award words1 I1
+
+gen Ipercent=(I1/words1)*100
+
+sort Award
+by Award: gen i=_n
+keep if i<2
+drop i words1
+gsort -Ipercent
+
+save Icount, replace
+
+**Wecounts**
+clear all
+use oscars2
+
+gen We1=length(Speech)-length(subinstr(Speech, "we ", "  ",.))
+gen We2=length(Speech)-length(subinstr(Speech, "We ", "  ",.))
+gen We3=length(Speech)-length(subinstr(Speech, "our ", "   ",.))
+gen We4=length(Speech)-length(subinstr(Speech, "Our ", "   ",.))
+gen We5=length(Speech)-length(subinstr(Speech, "us ", "  ",.))
+gen We6=length(Speech)-length(subinstr(Speech, "we'", "  ",.))
+gen We7=length(Speech)-length(subinstr(Speech, "We'", "  ",.))
+gen We8=length(Speech)-length(subinstr(Speech, "ourselves", "        ",.))
+
+gen We=We1+We2+We3+We4+We5+We6+We7+We8
+drop We1 We2 We3 We4 We5 We6 We7 We8
+
+egen We1=sum(We), by(Award)
+
+gen Wepercent=(We1/words1)*100
+
+sort Award
+by Award: gen i=_n
+keep if i<2
+gsort -Wepercent
+
+keep Award We1 Wepercent
+save Wecount, replace
+
+**ratio of self-involvedness**
+clear all
+use oscars2
+
+gen We1=length(Speech)-length(subinstr(Speech, "we ", "  ",.))
+gen We2=length(Speech)-length(subinstr(Speech, "We ", "  ",.))
+gen We3=length(Speech)-length(subinstr(Speech, "our ", "   ",.))
+gen We4=length(Speech)-length(subinstr(Speech, "Our ", "   ",.))
+gen We5=length(Speech)-length(subinstr(Speech, "us ", "  ",.))
+gen We6=length(Speech)-length(subinstr(Speech, "we'", "  ",.))
+gen We7=length(Speech)-length(subinstr(Speech, "We'", "  ",.))
+gen We8=length(Speech)-length(subinstr(Speech, "ourselves", "        ",.))
+gen We=We1+We2+We3+We4+We5+We6+We7+We8
+drop We1 We2 We3 We4 We5 We6 We7 We8
+egen We1=sum(We), by(Award)
+
+gen I1=length(Speech)-length(subinstr(Speech, "I ", " ",.))
+gen I2=length(Speech)-length(subinstr(Speech, "me ", "  ",.))
+gen I3=length(Speech)-length(subinstr(Speech, "my ", "  ",.))
+gen I4=length(Speech)-length(subinstr(Speech, "My ", "  ",.))
+gen I5=length(Speech)-length(subinstr(Speech, "Me ", "  ",.))
+gen I6=length(Speech)-length(subinstr(Speech, "I'", " ",.))
+gen I7=length(Speech)-length(subinstr(Speech, "myself", "     ",.))
+gen I=I1+I2+I3+I4+I5+I6+I7
+drop I1 I2 I3 I4 I5 I6 I7 
+egen I1=sum(I), by(Award)
+
+gen Self=I1/We1
+**this doesn't cause a problem because I1 and We1 are greater than 0 for each award category**
+keep Award Self
+
+sort Award
+by Award: gen i=_n
+keep if i<2
+gsort -Self
+drop i
+
+save self, replace
+
+***merge into one table for the heatmap**
+clear all
+use oscarwords
+merge 1:1 Award using Icount
+drop _merge
+merge 1:1 Award using Wecount
+drop _merge
+merge 1:1 Award using self
+drop _merge
+sort Award
+drop We1 I1
+rename words Words
+
+replace Words=round(Words, 0.01)
+replace Ipercent=round(Ipercent, 0.01)
+replace Wepercent=round(Wepercent, 0.01)
+replace Self=round(Self, 0.01)
+
+save master, replace
+export excel master, firstrow(variables) replace
