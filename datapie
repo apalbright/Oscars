@@ -1,0 +1,19 @@
+**determine numbers to input into pie chart**
+**Import oscars data**
+clear all 
+set more off
+
+cd "C:\Users\apa\Desktop\My Work\Misc For Me (NISD)\The Little Dataset\oscars"
+import excel "oscars3", firstrow clear
+
+drop if Speech==""
+
+gen wordcount=wordcount(Speech)
+
+egen malewordsA=sum(wordcount) if Gender==0&Actor==1
+egen malewordsNA=sum(wordcount) if Gender==0&Actor==0
+egen femalewordsA=sum(wordcount) if Gender==1&Actor==1
+egen femalewordsNA=sum(wordcount) if Gender==1&Actor==0
+
+tabstat *words*
+**can make a pie chart with that**
