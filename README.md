@@ -8,4 +8,7 @@ In order to create the first heat table from the post, download the oscars3 exce
 In order to create the second heat table, run do-file "dataheattable2" in stata (change the working directory in this file to your own) to yield genderactor.csv. Then, run R script "heattablebyaward" that uses genderactor.csv.
 
 #Pie chart
-In order to create the pie chart, run the R script "pie." If you want to see where the pie data came from, run the "datapie" stata do-file on the oscars3 data. Again, change the directory.
+In order to create the pie chart, run the R script "pie." If you want to see where the pie data came from, run the "datapie" stata do-file on the oscars3 data. 
+
+#Stata directory note
+You must specify the directory where you've downloaded the oscars3 file for all stata do-files to run properly
