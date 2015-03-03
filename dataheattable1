@@ -150,5 +150,4 @@ rename Ipercent I.Percent
 rename Wepercent We.Percent
 rename Self Self.Ratio
 
-save master, replace
-export excel master, firstrow(variables) replace
+outsheet Award Word.Count I.Percent We.Percent Self.Ratio using master.csv , comma nolabel 
