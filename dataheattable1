@@ -2,7 +2,7 @@
 clear all 
 set more off
 
-cd "C:\Users\apa\Desktop\My Work\Misc For Me (NISD)\The Little Dataset\oscars"
+**Set your directory here--for whereever you downloaded the oscars3 files**
 import excel "oscars3", firstrow clear
 
 drop if Speech==""
