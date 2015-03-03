@@ -138,14 +138,7 @@ merge 1:1 Award using self
 drop _merge
 sort Award
 drop We1 I1
-rename words Words
-
-replace Words=round(Words, 0.01)
-replace Ipercent=round(Ipercent, 0.01)
-replace Wepercent=round(Wepercent, 0.01)
-replace Self=round(Self, 0.01)
-
-rename Words Word.Count
+rename words Word.Count
 rename Ipercent I.Percent
 rename Wepercent We.Percent
 rename Self Self.Ratio
