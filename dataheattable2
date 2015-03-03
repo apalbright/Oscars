@@ -82,4 +82,4 @@ rename Wepercent We.Percent
 rename self Self.Ratio
 rename GenderActor Gender.Actor
 
-outsheet Gender.Actor Word.Count I.Percent We.Percent Self.Ratio using genderactor2.csv , comma nolabel 
+outsheet Gender.Actor Word.Count I.Percent We.Percent Self.Ratio using genderactor.csv , comma nolabel 
