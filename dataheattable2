@@ -71,5 +71,15 @@ keep if i<2
 keep GenderActor words4 Ipercent Wepercent self
 order GenderActor words4 Ipercent Wepercent self
 
-save genderactor1, replace
-export excel genderactor1, firstrow(variables) replace
+replace words4=round(words4, 0.01)
+replace Ipercent=round(Ipercent, 0.01)
+replace Wepercent=round(Wepercent, 0.01)
+replace self=round(self, 0.01)
+
+rename words4 Word.Count
+rename Ipercent I.Percent
+rename Wepercent We.Percent
+rename self Self.Ratio
+rename GenderActor Gender.Actor
+
+outsheet Gender.Actor Word.Count I.Percent We.Percent Self.Ratio using genderactor2.csv , comma nolabel 
