@@ -1,6 +1,6 @@
 #create heattable by gender actor
 
-oscar<-read.csv(file="genderactor2.csv")
+oscar<-read.csv(file="genderactor.csv")
 oscar$Name <- with(oscar, reorder(Gender.Actor, Gender.Actor))
 
 library("ggplot2")
