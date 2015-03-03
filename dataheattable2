@@ -53,7 +53,7 @@ egen words4=mean(words), by(GenderActor)
 *calc avg wepercent by category*
 egen words3=sum(words), by(GenderActor)
 egen We1=sum(We), by(GenderActor)
-gen Wepercent=(We1/words3)
+gen Wepercent=(We1/words3)*100
 
 *calc avg Ipercent by category*
 egen I1=sum(I), by(GenderActor)
