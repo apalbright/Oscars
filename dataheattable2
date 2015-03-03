@@ -71,11 +71,6 @@ keep if i<2
 keep GenderActor words4 Ipercent Wepercent self
 order GenderActor words4 Ipercent Wepercent self
 
-replace words4=round(words4, 0.01)
-replace Ipercent=round(Ipercent, 0.01)
-replace Wepercent=round(Wepercent, 0.01)
-replace self=round(self, 0.01)
-
 rename words4 Word.Count
 rename Ipercent I.Percent
 rename Wepercent We.Percent
