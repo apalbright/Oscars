@@ -17,4 +17,4 @@ egen femalewordsA=sum(wordcount) if Gender==1&Actor==1
 egen femalewordsNA=sum(wordcount) if Gender==1&Actor==0
 
 tabstat *words*
-**can make a pie chart with that**
+**This yields the few numbers that I manually entered into the pie R script**
