@@ -12,3 +12,6 @@ In order to create the pie chart, run the R script "pie." If you want to see whe
 
 #Stata directory note
 You must specify the directory where you've downloaded the oscars3 file for all stata do-files to run properly
+
+#R Packages needed
+You'll need to install the packages ggplot2, plyr, reshape2, and scales in order to run the R scripts.
