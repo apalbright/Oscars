@@ -145,5 +145,10 @@ replace Ipercent=round(Ipercent, 0.01)
 replace Wepercent=round(Wepercent, 0.01)
 replace Self=round(Self, 0.01)
 
+rename Words Word.Count
+rename Ipercent I.Percent
+rename Wepercent We.Percent
+rename Self Self.Ratio
+
 save master, replace
 export excel master, firstrow(variables) replace
