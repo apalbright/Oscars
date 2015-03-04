@@ -71,10 +71,4 @@ keep if i<2
 keep GenderActor words4 Ipercent Wepercent self
 order GenderActor words4 Ipercent Wepercent self
 
-rename words4 Word.Count
-rename Ipercent I.Percent
-rename Wepercent We.Percent
-rename self Self.Ratio
-rename GenderActor Gender.Actor
-
-outsheet Gender.Actor Word.Count I.Percent We.Percent Self.Ratio using genderactor.csv , comma nolabel 
+outsheet GenderActor words4 Ipercent Wepercent self using genderactor.csv , comma nolabel 
