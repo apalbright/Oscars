@@ -140,4 +140,4 @@ drop We1 I1
 
 cd "tld-oscars/generated_data"
 
-outsheet Award words Ipercent Wepercent Self using master.csv , comma nolabel
+outsheet Award words Ipercent Wepercent Self using master.csv , comma nolabel replace
