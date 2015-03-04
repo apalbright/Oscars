@@ -2,7 +2,7 @@
 clear all 
 set more off
 
-cd "./raw_data"
+cd "raw_data"
 import excel "oscars3", firstrow clear
 
 drop if Speech==""
