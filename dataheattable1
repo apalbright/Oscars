@@ -139,4 +139,4 @@ drop _merge
 sort Award
 drop We1 I1
 
-outsheet Award Word.Count I.Percent We.Percent Self.Ratio using master.csv , comma nolabel 
+outsheet Award words Ipercent Wepercent Self using master.csv , comma nolabel
