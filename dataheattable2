@@ -70,4 +70,4 @@ keep GenderActor words4 Ipercent Wepercent self
 order GenderActor words4 Ipercent Wepercent self
 
 cd "tld-oscars/generated_data"
-outsheet GenderActor words4 Ipercent Wepercent self using genderactor.csv , comma nolabel 
+outsheet GenderActor words4 Ipercent Wepercent self using genderactor.csv , comma nolabel replace
