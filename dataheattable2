@@ -2,7 +2,7 @@
 clear all 
 set more off
 
-cd "./raw_data"
+cd "raw_data"
 import excel "oscars3", firstrow clear
 
 drop if Speech==""
@@ -69,5 +69,5 @@ keep if i<2
 keep GenderActor words4 Ipercent Wepercent self
 order GenderActor words4 Ipercent Wepercent self
 
-cd "./generated_data"
+cd "tld-oscars/generated_data"
 outsheet GenderActor words4 Ipercent Wepercent self using genderactor.csv , comma nolabel 
