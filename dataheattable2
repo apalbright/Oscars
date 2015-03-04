@@ -2,9 +2,7 @@
 clear all 
 set more off
 
-**set directory here for where you downloaded oscars3**
-**eg: cd "C:\Users\apa\Desktop\My Work\Misc For Me (NISD)\The Little Dataset\oscars"**
-
+cd "./raw_data"
 import excel "oscars3", firstrow clear
 
 drop if Speech==""
@@ -71,4 +69,5 @@ keep if i<2
 keep GenderActor words4 Ipercent Wepercent self
 order GenderActor words4 Ipercent Wepercent self
 
+cd "./generated_data"
 outsheet GenderActor words4 Ipercent Wepercent self using genderactor.csv , comma nolabel 
