@@ -138,9 +138,5 @@ merge 1:1 Award using self
 drop _merge
 sort Award
 drop We1 I1
-rename words Word.Count
-rename Ipercent I.Percent
-rename Wepercent We.Percent
-rename Self Self.Ratio
 
 outsheet Award Word.Count I.Percent We.Percent Self.Ratio using master.csv , comma nolabel 
