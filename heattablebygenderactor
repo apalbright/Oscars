@@ -5,7 +5,7 @@ library("reshape2")
 library("scales")
 
 oscar<-read.csv(file="genderactor.csv")
-oscar<-rename(oscar, c("words4"="Word.Count", "Ipercent"="I.Percent", "Wepercent"="We.Percent", "self"="Self.Ratio"))
+oscar<-rename(oscar, c("GenderActor"="Gender.Actor", "words4"="Word.Count", "Ipercent"="I.Percent", "Wepercent"="We.Percent", "self"="Self.Ratio"))
 oscar$Name <- with(oscar, reorder(Gender.Actor, Gender.Actor))
 
 oscar.m <- melt(oscar)
