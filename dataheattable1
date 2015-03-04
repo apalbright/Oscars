@@ -2,8 +2,8 @@
 clear all 
 set more off
 
-**Set your directory here--for where you downloaded the oscars3 file**
-**eg: cd "C:\Users\apa\Desktop\My Work\Misc For Me (NISD)\The Little Dataset\oscars"**
+cd "./raw_data"
+
 import excel "oscars3", firstrow clear
 
 drop if Speech==""
@@ -138,5 +138,7 @@ merge 1:1 Award using self
 drop _merge
 sort Award
 drop We1 I1
+
+cd "./generated_data"
 
 outsheet Award words Ipercent Wepercent Self using master.csv , comma nolabel
