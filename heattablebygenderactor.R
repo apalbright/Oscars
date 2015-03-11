@@ -4,7 +4,7 @@ library("plyr")
 library("reshape2")
 library("scales")
 
-setwd("raw_data")
+setwd("generated_data")
 oscar<-read.csv(file="genderactor.csv")
 oscar<-rename(oscar, c("GenderActor"="Gender.Actor", "words4"="Word.Count", "Ipercent"="I.Percent", "Wepercent"="We.Percent", "self"="Self.Ratio"))
 oscar$Name <- with(oscar, reorder(Gender.Actor, Gender.Actor))
