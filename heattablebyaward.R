@@ -4,6 +4,7 @@ library("plyr")
 library("reshape2")
 library("scales")
 
+setwd("raw_data")
 oscar <- read.csv("master.csv")
 oscar$Name <- with(oscar, reorder(Award, Award))
 oscar<-rename(oscar, c("words"="Word.Count", "Ipercent"="I.Percent", "Wepercent"="We.Percent", "Self"="Self.Ratio"))
