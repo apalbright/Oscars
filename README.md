@@ -1,5 +1,5 @@
 # tld-oscars
-Raw data, stata do-files, and R scripts for "I’d Like to Thank the Academy…for making this data available" (http://thelittledataset.com/2015/01/20/the-one-with-all-the-quantifiable-friendships/)
+Raw data, stata do-files, and R scripts for "I’d Like to Thank the Academy…for making this data available" (http://thelittledataset.com/2015/02/19/id-like-to-thank-the-academy-for-making-this-data-available/)
 
 #1st heat table
 In order to create the first heat table, clone the repository and then run the R script "heattablebyaward." If you'd like to investigate how the data was cleaned and organized, you can also run the do-file "dataheattable1"--this do-file creates the "master.csv" file found in the "generated_data" folder. 
